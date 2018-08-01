@@ -1,0 +1,481 @@
+---
+title: "Week 1 Computer Lab Exercises"
+author: Jiun Hong (Aaron) Choong - 25101994 Qiu Man Lee - 29245338 Hua Chen Li- 28774426
+  Thanh Phan - 28647106 Micah Wong - 29687551
+date: "Due no later than 5pm Tuesday of Week 2 (31 July 2018)"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+
+```
+
+## Instructions
+
+**This assignment is due on Moodle 5pm Tuesday 31 July 2018. For this initial computer lab assignment, students can choose to either work in a group comprised of up to 4 people, or work individually. **Only one submission for each group is required.** 
+
+Note that from week 2, all computer lab assignments will be group (only) assignments, and should contain 3 or 4 people. The tutors will finalise the group allocations in the week 2 tutorials. 
+
+Follow instructions provided in each section below. By the end, you will need to upload **three (3)** separate files to the Week 1 Lab 2018 Assignment link on Moodle for your group. These files will have names such as:
+
+1. `GroupName_Lab1.Rmd` 
+2. `GroupName_Lab1.doc` (or `.docx`) 
+3. `GroupName_Trynew.html`
+
+**You must be sure to include all student names and ID numbers for every person in your group on every document or file submitted!** 
+
+## Assessment marks
+
+The final mark for this assessment task will be based on
+
+i. Completion of all tasks outlined in this file (50%);
+
+ii. Completeness and clarity of responses (20%); and
+
+iii. The ability of the submitted .Rmd files to compile immediately without error (reproducibility) (30%).
+
+
+## 1. Install R and RStudio
+
+If you haven't already done so, you should install `R` and then `RStudio` on your own machine, if you have one. Check out the **Install `R` and RStudio** instructions on Moodle under the _Computing Resources_ section.
+
+If you do not have your own machine, you can borrow one. Check out the **Need to borrow a laptop?** information on Moodle under the _Computing Resouces_ section.
+
+## 2. Use the **Week_1_Lab_2018.Rmd** file from the _Computer lab exercises_ section on Moodle
+
+The printed document you received was produced using the `Week_1_Lab_2018.Rmd` file.  You will also be using your (renamed) copy of this .Rmd file to complete your analysis in RStudio!
+
+a. Initiate the `RStudio` application on your computer, and check that all appears as described in the _Install `R` and RStudio_ instruction sheet. 
+
+b. Download the `Week_1_Lab_2018.Rmd` file from the unit Moodle page.  Save the file in the directory where you want to retain a copies of your work. We will refer to this directory as your _Working Directory_.
+(The PDF file was produced using the `Week_1_Lab_2018.Rmd` file,  compiling it as a Word document first and from there printing as a PDF file. You will also be using this same (renamed) file to complete your Week 1 computer lab exercises in RStudio!)
+
+c. In `RStudio`, go to `File/ Open file...` and select the `Week_1_Lab_2018.Rmd` file you just downloaded.
+
+d. In `RStudio`, go to `Session/ Set working directory/ To source file location`. 
+
+e. In `RStudio`, go to `File/ Save as...` to create a new copy of the `Week_1_Lab_2018.Rmd` file and name it using your group name attached with an underscore to `Lab_1` (i.e. **GroupName_Lab_1.Rmd**). Use this new .Rmd file to complete the rest of this section. 
+
+f. Immediately put all group members name and ID numbers in the authoring section of your `GroupName_Lab1.Rmd` file.
+
+### Learn to install packages
+
+**To install an `R` package**, use the _Packages_ window in the bottom right hand corner of the `RStudio` environment. You can use the `default` location for the _Install to Library_ location, and keep the box ticked for _Install dependencies_. If asks you to restart `R` prior to installing these packages, answer _Yes_. 
+
+g. **Install the three `R` packages** listed below:
+
+    `knitr`
+    
+    `tidyverse`
+    
+    `gapminder`
+
+
+h. Now type each of the following commands into the `RStudio` _console_ window, and hit Return/Enter after each:
+
+    > `library(knitr)` 
+
+    > `library(tidyverse)` 
+
+    > `library(gapminder)`
+
+The following `code chunk` will do the same thing, but will be **reproducible** (meaning you can automatically run the file in a new session, without any interference from you, and it will still compile fully and give you the same results!) 
+
+```{r, echo=FALSE}
+library(knitr)
+library(tidyverse)
+library(gapminder)
+```
+
+### Warning messages
+
+You may notice some warning messages appear when you run code, particularly to install packages. Take a look to see what the messages say. Usually the problems are not too serious and you can ignore the issue.
+
+### Finding Help 
+
+Remember how to find help in `R` and `RStudio` (information is available on the `Install R and RStudio` instruction sheet posted in the _Computing Resources_ section on Moodle.) If you need more help, here are some additional suggestions for getting **help from the web**.
+
+- Reading documentation only gets you so far. What about _finding_ function(s) and/or package(s) to help solve a problem???
+
+- Google! (I usually prefix "CRAN" to my search; others might suggest [http://www.rseek.org/](http://www.rseek.org/)
+
+- Ask your question on a relevant StackExchange outlet such as  [http://stackoverflow.com/](http://stackoverflow.com/) or [http://stats.stackexchange.com/](http://stats.stackexchange.com/)
+
+- Other Resources
+    + [RStudio cheat sheets](https://www.rstudio.com/resources/cheatsheets/)
+    + [Q/A site: http://stackoverflow.com](http://stackoverflow.com)
+    + [Dynamic Documents with `R` and knitr, Yihui Xie](http://yihui.name/knitr/)
+
+
+### Some questions you need to answer
+
+i. What is an `R package`? Write your answers below in the space provided. (Hint: You can use the help pages to learn about these two specific packages. You can also use Google to search for answers!)
+
+**Answer here:** An R package are additional packages that can be integrated into R in order to have more functionality in the program. knitr allows the .rmd file to synthesised into a PDF/word/HTML format for reading. 
+
+j. How does the `library()` function relate to a `package`?
+
+**Answer here:** library() will load the package into the R workspace. 
+
+k. **Save your `GroupName_Lab1.Rmd` file** (again, so that it retains your answers above) using File/Save (Ctrl-S) or File/Save As.... You will continue with this file a bit later on, in Section 5. 
+
+
+## 4. Start a new RMarkdown file
+
+You can keep your `GroupName_Lab1.Rmd` file open in `RStudio` while you complete the next section. You will come back to this file again in Section 5. 
+
+a. Open a new Rmarkdown document with a default output format for html. (File -> New File -> `R` Markdown -> html -> OK) **Save and name** this new file **GroupName_Trynew** when you save it (it will automatically get the file extension `.Rmd`).
+
+b. Immediately put all group members name and ID numbers in the authoring section of your `GroupName_Trynew.Rmd` file.
+
+c. Using the **`Knit`** button (there is an icon of a ball of yarn with some knitting needles next to it!) on the top left side of the RMD window the , compile the document into an **html** document. Check that the resulting HTML file appears in your _working directory_.)
+
+d. Next, look at the contents of the `GroupName_Trynew.Rmd` file. Do you know the answers to each of the following questions? (You do not need to write out answers to these questions here, but if you are unsure ask your tutor or a classmate!)
+ 
+    i) How do you identify the lines of `R` code? In between ``` 
+    ii) How does `knitr` know that this is code to be run? It runs codes between ```
+    iii) What is a `code chunk'? A code chunk exists in between ``` to separate different chunks to represent different sections of the code. 
+    iv) How do you run a `chunk` of `R` code? There is a run chunk button in the drop down menu of Run
+    v) How do you run just one line of `R` code? Ctrl + enter on the PC without highlighting (default).
+    vi) How do you highlight and run multiple lines of code? Ctrl + enter on the PC with highlighting (default).
+    vii) What happens if you try to run a line that starts with ` ```{r}`? The code will compile into the R environment.
+    viii) What happens when you try to run a line of regular text from the document? It will be displayed in the R console as an error while displaying the whole text that was highlighted and executed. 
+
+
+e. **Upload** your **GroupName_TryNew.html** file to Moodle as part of your Weekly Computer Lab 1 assignment submission.
+
+
+## 5. Get some data
+
+Return now to work with your **GroupName_Lab1.Rmd** file in `RStudio`. 
+
+a. Clear out the workspace by first identifying the _Environment_ tab in the upper right hand corner  window in `RStudio`, and click on the **broom** (yes, the broom icon at the top) icon to empty the objects there. Then re-run the `GroupName_Lab1.Rmd` file again to be sure that the Workspace is refreshed with the correct objects - since you worked in the same environment while wusing your `GroupName_TryNew.Rmd` file. 
+
+### Data from packages
+
+We are going to be working with **data**. Data can be found in many `R` packages, for example
+
+```{r}
+library(dplyr)
+data(economics, package = "ggplot2")
+glimpse(economics)
+```
+
+b. Run the above greyed-out code chunk (only) by clicking on the small green triangle (in the upper right hand corner of the code chunk). 
+
+The `economics` object is a dataframe. You can look directly at the dataframe by doubleclicking on the `economics` object in the _Environment window_ in the upper right corner of RStudio.\footnote{If the dataframe was much larger, looking at it this way would not be a good idea...}
+
+Each of the rows of *economics* contains values for a range of available variables. 
+
+c. What are the variables in the `economics` dataframe? **List them and explain what they are below.** (Hint: you can use the **help** window to search for information about the **economics** object!) 
+
+**Answer:** 
+Variables: 
+
+- Date - Date recorded (in terms of month)
+- pce - personal cionsumption expenditures (in billions of dollars)
+- pop - Population number
+- psavert - personal savings rate
+- uempmed - Median duration of employment
+- unemploy - Unemployed number (in thousands)
+
+d. Here is another data set, from the `gapminder` package. 
+
+```{r}
+glimpse(gapminder)
+```
+
+e. Find out about the `glimpse` function - what does it do? What package it is from? How should we interpret what it produces? Describe each of these below.
+
+**Answer(s):**
+Glimpse provides a summary of the data. It also provides a brief insight on what type of variables and data types the data frame contains with a few examples of the actual data. 
+Glimpse is from the dpylr package. 
+Glimpse provides a simple interpretation of the data. 
+
+
+### Read in data from a csv file
+
+There are many different functions available for reading in data from data files saved outside of R. The one we'll use here (called `readr`)  mimics the base `R` reading functions but is implemented in `C` so reads large files quickly. It also attempts to identify the types of variables in the file, which can be helpful when you are getting to know your data. 
+
+```{r}
+library(readr)
+```
+
+### Data subdirectory
+
+But first we need to do some housekeeping! It is useful to keep your data files in a subfolder (I call mine 'data') so that you can easily keep track of them. 
+
+f. Create a subdirectory named **`Data`** in your working directory, Then download the `Pedestrian_Counts.csv` file from the _Computer lab exercises_ section of the Moodle page, and put it in your `Data` subdirectory.
+
+You can pull a data file together yourself, or look at one compiled by someone else. Below is a data file compiled by Professor Di Cook, with original data obtained from the  [City of Melbourne](http://www.pedestrian.melbourne.vic.gov.au). Run the code chunk and see how to import the `CSV` file to create a new dataframe in `R`. 
+
+g. Run the `code chunk` below. How many rows do you think it contains? 
+
+**Answer here:** 
+
+```{r}
+ped <- read_csv("data/Pedestrian_Counts.csv")
+glimpse(ped)
+```
+
+If you know your data file is going to be big, and you just want to look a bit closer at the different types of variables are, you can use the **`n_max=50`** option in the `read_csv` function so you extract the first 50 lines. 
+
+1392618 rows.
+
+h. Run the code chunk below. 
+
+
+```{r}
+ped50 <- read_csv("data/Pedestrian_Counts.csv",n_max=50)
+glimpse(ped50)
+dim(ped)
+dim(ped50)
+ped50
+```
+
+## 6. Basic arithmetic and other simple operations
+
+The rest of this computer lab is meant to help you to learn how to code in `R`. Work through each topic, and if you have questions use the `help` facility first, then discuss with your group to get their insights and to ensure everyone understands each component. 
+
+An `expression` simply requests the evaluation of a mathematical or logical formula. 
+
+The `R` _assignment operator_ (`<-`) assigns a value to a name, and stores the named object in the `workspace`. You can then retrieve the object when you need it.
+
+a. Run the `code chunk` below.
+
+
+```{r}
+# an expression
+3 + 4 +5
+
+# assigned objects
+w <- 3
+x <- 4
+y <- 5
+z <- w + x + y
+z
+```
+
+b. Before you move on, take a look in the upper right-hand pane of the RStudio. Do you see the various objects that you have already created? 
+
+**Answer here:** Yes
+
+c. Write a `code chunk` (`Code/Insert Chunk` or use Ctrl-Alt-i) to delete the object `z` using the **remove** (rm) function. Once completed, check that the object `z` no longer appears in your `workspace`. 
+
+**Put code chunk below here:**
+
+```{r}
+rm('z')
+```
+
+
+### Vectors
+
+To create a vector of any length, you just need to collect together the desired components in order, using the **combine** (c) command. For example:
+
+```{r}
+a <- c(1, 3, 5, 7)
+a
+```
+
+You can use the same `combine` function with non-numeric data, such as text values, as shown below.
+
+```{r}
+cool <- c("red", "blue", "yellow")
+```
+
+d. What happens when you use the `print` function on the object `cool`? Try it!
+
+**Answer here:**
+
+```{r}
+print(cool)
+```
+
+### Sequences
+
+An alternative way to have constructed the numeric vector **`a`** is to use the **sequence** (seq) function. In this case, as we want **`a`** to be comprised of the integer numbers starting from 1 and ending with 9, skipping every second integer value. So we can write
+
+```{r}
+a1 <- seq(from = 1, to = 9, by = 2)
+a1
+```
+
+e. Do you get the same result with `a2 <- seq(1, 9, 2)`? **Show by creating a new code chunk** that checks to see if by subtracting **`a1`** from **`a2`** you get exactly zero. (Hint: You can check if the subtraction result is **exactly zero** using the relational operator given by **==**.)
+
+```{r}
+a2 = seq(1,9,2)
+a1 - a2
+
+```
+
+
+**Put code chunk below here:**
+
+So far the vectors have been relatively short, and have only needed a single line to print all components. Now suppose you wanted to put the integers from 1 to 100 in an object. You can, of course, use `seq(1,100,1)`, but an alternative is to use the **colon** (:) operator to indicate any integer range.
+
+```{r}
+b <- c(1:100)
+b
+```
+
+f. Use the `colon` operator to list all integers between 5 and 15, including these end points.
+
+**Answer here:**
+```{r}
+b2 <- c(5:15)
+b2
+```
+
+
+### Length of a vector
+
+The length of a vector or list can be found using the **length** function.
+
+g. Write a code chunk that uses the `length` function to find the lengths of each of the objects **`a`**, **`b`** and `cool`. 
+
+
+
+**Put code chunk below here:**
+
+```{r}
+
+length(a)
+length(b)
+length(cool)
+
+```
+
+### Extracting part of a vector
+
+To extract a portion of an existing vector, supply the index numbers associated with the elements you want to keep inside square brackets following the name of the original vector. For example, to extract only the last ten elements of the vector **`b`** defined above.
+
+```{r}
+b[91:100]
+```
+
+Or, for example, if you wish to extract every element of **b** with an odd index, you can use
+
+```{r}
+b[seq(1,length(b),2)]
+```
+
+It is also possible to extract elements of a vector to correspond to a condition involving another object. For example, suppose that in addition to **`b`** we have the vector **`d`** below.
+
+```{r}
+d <- 38-0.5*c(1:100)
+d
+```
+
+Now we can select values of **`b`** for which the corresponding values of **`d`** satisfy **`a < 0`**.
+```{r}
+b[d < 0]
+```
+
+h. Find all months (dates) where the median unemployment is less than 12 months, by writing a suitable `code chunk` below.
+```{r}
+economics[economics$uempmed<12,1]
+```
+
+
+### Operations
+In the previous example we used **subtraction** (-) and **multiplication** (*) operators. In `R` there are five basic arithmetic operators: **addition** (+), subtraction, multiplication, **division** (/) and **exponentiation** (^).
+
+Try out the operators in the following examples.
+
+```{r}
+A <- c(1, 2, 3)
+5*A
+B <- c(1, -1, 5)
+C <- A + B
+D <- A - B
+D + 3
+A*C
+A/B
+A^B
+```
+
+**Note that `R` is case-sensitive!** You should have both objects **`A`** and **`a`** currently saved in your workspace. Do you?
+
+**Answer:**
+Yes
+
+### Matrices
+
+The **matrix** function (`matrix(Y, nrow=r, ncol=c)`)
+enables you to construct a matrix, putting the elements of a vector **`Y`** into a matrix having `r` rows and `c` columns. For example
+
+```{r}
+Y <- matrix(1:6, 3, 2)
+Y
+```
+
+Note that the elements of the vector `1:6` enter the matrix **`Y`** filling in the first column ([,1]) before continuing on to fill in the second column ([,2]). This is because the default is to fill the matrix by column, as indicated by the `byrow = FALSE` default in the `matrix` command. (You may want to review the `help file` for `matrix`.) To change this to have the elements of the vector fill in the matrix by row rather than by column, we need to include `byrow=TRUE` (or simply `byrow = T`) as a fourth argument to the `matrix` function. In this case a different matrix results
+
+```{r}
+Y <- matrix(1:6, 3, 2, byrow = T)
+Y
+```
+
+Matrix rows are indicated by `[r,]`, where `r` indicates the relevant row number, and matrix columns are indicated by `[,c]`, where `c` indicates the relevant column number. 
+
+i. Write a code chunk to find the 3rd row of the matrix **`Y`**, by selecting only the 3rd row with the subsetting indicator `[3,]`. 
+
+**Put code chunk below here:**
+```{r}
+Y[3,]
+```
+
+
+Similar to the case for vectors, if you wanted to extract a particular submatrix, you just need to express which rows and columns you want to extract by providing the relevant index sequence. To extract particular rows, insert the row indices, as a vector, in the `r` place inside the square brackets `[r,c]` following the name of the original matrix, and and leave the column specification in the `c` place blank. 
+
+j. Write a code chunk to extract all columns of the second and third rows of **`Y`** only.
+
+**Put code chunk below here:**
+```{r}
+Y[2:3,]
+```
+
+
+### Dimension of an object
+
+The dimension of an object, such as a matrix, is found using the **dimensions** (dim) command. In the case of a matrix, the result of`dim(matrix)` is a two dimensional vector containing the number of rows and columns, respectively, of the matrix in question. 
+
+k. Write a code chunk to find the dimensions of the `economics` dataframe, and of the matrix **`Y`**.
+
+**Put code chunk below here:**
+```{r}
+dim(economics)
+dim(Y)
+```
+
+
+l. Once you have completed answering all questions, **Knit to Word** the entire .Rmd file. This will automatically save the .Rmd and also will *hopefully* produce your `GroupName_Lab1.doc` (or .docx) Word document - look for it in your `working directory`.
+
+m. Save your `GroupName_Lab1.doc` (or `.docx`) file. 
+
+## Turn in your work!
+
+ Then, upload to the Week 1 Lab 2018 Assignment link on Moodle each of the following:
+
+1. Your `GroupName_Trynew.html` file
+2. Your `GroupName_Lab1.Rmd` file
+3. Your `GroupName_Lab1.doc` (or `.docx`) file
+ 
+
+###  **PLEASE NOTE!! **
+
+- **Make sure ALL of your group members are listed as authors on all files.** If a name and/or ID number is not listed on the submitted files, the **whole group** may lose credit. 
+
+- Make sure there are **no typos** in either your Group Name OR in any of the student ID numbers provided in each file. 
+
+- Turn in ONLY **one set of files per group**!!
+
+### DUE: No later than 5pm on Tuesday of Week 2 (31 July 2018)
+
