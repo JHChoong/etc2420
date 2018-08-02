@@ -4,6 +4,8 @@ author: Jiun Hong (Aaron) Choong - 25101994 Qiu Man Lee - 29245338 Hua Chen Li- 
   Thanh Phan - 28647106 Micah Wong - 29687551
 date: "Due no later than 5pm Tuesday of Week 3 (7 August 2018)"
 output:
+  html_document:
+    df_print: paged
   word_document: default
 ---
 
@@ -232,7 +234,8 @@ a. Insert a code chunk containing a function you have created that will
 **Insert code chunk**      
 
 ```{r}
-
+library(purrr)
+library(dplyr)
 pdif_shuffle <- function(dataf, shuffle=TRUE){
   if (shuffle)  
     dataf$group <- sample(dataf$group)
@@ -255,6 +258,7 @@ b. Insert a code chunk that will run your function (using an appropriate loop) 1
 
 **Insert code chunk**  
 ```{r}
+library(tidyverse)
 d_orig <- pdif_shuffle(result, shuffle=FALSE)
 
 set.seed(2018)
@@ -311,7 +315,6 @@ h. Finally, based on these experimental results how would you answer "Is yawning
     **Answer:**  Based on the experimental results, yawning does not seem to be contagious. 
     
     
-
 
 
 

@@ -4,6 +4,8 @@ author: Jiun Hong (Aaron) Choong - 25101994 Qiu Man Lee - 29245338 Hua Chen Li- 
   Thanh Phan - 28647106 Micah Wong - 29687551
 date: "Due no later than 5pm Tuesday of Week 3 (7 August 2018)"
 output:
+  html_document:
+    df_print: paged
   word_document: default
 ---
 
@@ -159,7 +161,11 @@ diff_ctrl_trt <- trt_yawn - ctrl_yawn # difference in proportions
 c. *(This question has been modified from the original version.)* Replicate the RMarkdown code below to produce the table from part b. with an additional column that reports the sample proportions calculated in your code chunk from part b.  
 
 
-    **Replicate here:**  
+Group  | No   | Yes | Total | Sample Proportion
+-----|-----|-----|-----|-----
+control | 12 | 4 | 16 | 0.25
+treatment | 24 | 10 | 34 | 0.294
+
     
 ## Question 2  
 
@@ -206,6 +212,12 @@ c. Insert a code chunk and use functions from the `dplyr` package to add a colum
 d. Insert a code chunk to calculate the difference in sample proportions between the treatment and control groups from the contingency table you produced in part c.  
 
 **Insert code chunk**    
+```{r}
+
+diff_prop <- trt_yawn - ctrl_yawn
+
+```
+
 
 e. *(This question has been deleted from the original version.)*  
 
@@ -220,36 +232,89 @@ a. Insert a code chunk containing a function you have created that will
     *(This note has been added to the original version.)* **Note: Students should take care to ensure that all permuted samples results in a well-defined (i.e. finite or non-missing) difference in sample proportions.**   
         
 **Insert code chunk**      
-    
+
+```{r}
+library(purrr)
+library(dplyr)
+pdif_shuffle <- function(dataf, shuffle=TRUE){
+  if (shuffle)  
+    dataf$group <- sample(dataf$group)
+  
+  dataf <- dataf %>% group_by(response, group) %>%
+  tally() %>%
+  ungroup() %>%
+  spread(group, n) %>%
+  mutate(total = rowSums(.[-1])) %>% 
+  mutate(p_hat = round(Control/total, digits=3))
+  pdif=dataf$p_hat[2]-dataf$p_hat[1]
+  
+return(pdif)
+}
+
+
+```
+
 b. Insert a code chunk that will run your function (using an appropriate loop) 10000 times, saving the result.  
 
 **Insert code chunk**  
+```{r}
+library(tidyverse)
+d_orig <- pdif_shuffle(result, shuffle=FALSE)
+
+set.seed(2018)
+reps <- 10000
+d_shuffle <- rep(0, reps)
+for(j in 1:reps){
+d_shuffle[j] <- pdif_shuffle(result)
+}
+```
+
 
 c. Insert a code chunk that makes a dotplot (or a histogram) of the results from part b., and add a vertical line on the plot that represents the difference between the treatment and control group proportions from the original data. (Note, you may need to modify the value of the `bandwidth` option for the graph to fit nicely in the document.  
 
 **Insert code chunk**  
+```{r}
+library(ggplot2)
+d_out <- data.frame(d = d_shuffle, y=1:reps)
+
+ggplot(data  =d_out, aes(x = d_out$d)) + 
+  geom_dotplot(binwidth = 0.00025) +
+  geom_vline(xintercept = d_orig, colour="red") +
+  scale_x_continuous(limits = c(-0.6,0.6))+
+  scale_y_continuous(NULL, breaks = NULL)+
+  theme(axis.text  =element_text(size = 10))+
+  xlab(expression(paste("Resampled  ", hat(p)[Treatment] - hat(p)[Control])))
+```
+
 
 d. Insert a code chunk that compute the proportion of times that the permuted data yields a difference larger than the difference of the actual data.  
 
 **Insert code chunk**  
+```{r}
+
+length(d_shuffle[d_shuffle > diff_prop])/length(d_shuffle)
+
+
+```
+
 
 e. Explain why the numerical value you reported in part e. may be considered as the (permutation) p-value for testing the null hypothesis.  
    **Answer:**  
+   Because the permutation (p-value) looks at all the possible combinations of disassociated responses for each subject which could have resulted in specific distributions. Hence, the permutation value tests the null hypothesis of whether similar results could have occured given the set of tested subjects. 
 
 f. Based on your p-value, what is your decision about the null hypothesis (i.e. reject, or fail to reject, the null hypothesis)?  
 
-    **Answer:**   
+    **Answer:**   The p-value fails to reject the null hypothesis. 
 
 g. Write a full sentence stating your conclusion, indicating the presumed significance level of your test.    
 
-    **Answer:**   
+    **Answer:**   At the 5% significance level, there is no statistical significance between the difference of propotions in people yawning between the treatment and control group. 
     
 h. Finally, based on these experimental results how would you answer "Is yawning contagious?"  
 
-    **Answer:**  
+    **Answer:**  Based on the experimental results, yawning does not seem to be contagious. 
     
     
-
 
 
 
