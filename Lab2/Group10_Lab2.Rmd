@@ -1,7 +1,8 @@
 ---
 title: "Week 2 Computer Lab Exercises (2nd version 29 July 2018)"
-author: Jiun Hong (Aaron) Choong - 25101994 Qiu Man Lee - 29245338 Hua Chen Li- 28774426
-  Thanh Phan - 28647106 Micah Wong - 29687551
+author: Jiun Hong (Aaron) Choong - 25101994
+  Samuel Goh - 
+  Thanh Phan - 28647106 
 date: "Due no later than 5pm Tuesday of Week 3 (7 August 2018)"
 output:
   html_document:
